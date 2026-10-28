@@ -1,0 +1,54 @@
+:root {
+    --warna-utama: #8b1e3f; /* merah marun sasirangan */
+    --warna-utama-gelap: #6a142f;
+    --warna-aksen: #e0a526; /* kuning kunyit */
+    --warna-krem: #fbe9c6;
+    --warna-teks: #222222;
+    --warna-teks-lembut: #555555;
+    --warna-latar: #fffaf3;
+    --warna-kartu: #ffffff;
+    --radius: 12px;
+    --bayangan: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --lebar-maks: 1100px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem; /* agar judul tidak tertutup header sticky */
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--warna-teks);
+    background-color: var(--warna-latar);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+}
+
+a {
+    color: var(--warna-utama);
+}
+
+/* Penanda fokus untuk pengguna keyboard — JANGAN dihapus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--warna-utama-gelap);
+    outline-offset: 2px;
+}
