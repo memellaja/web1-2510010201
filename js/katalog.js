@@ -1,133 +1,6 @@
-const katalog = [
-    {
-        id: 1,
-        nama: "Kain Motif Gigi Haruan",
-        kategori: "kain",
-        harga: 185000,
-        gambar: "img/gigi-haruan.svg",
-        deskripsi: "Kain katun 2 meter bermotif zig-zag menyerupai gigi ikan haruan."
-    },
-    {
-        id: 2,
-        nama: "Kain Motif Kambang Kacang",
-        kategori: "kain",
-        harga: 175000,
-        gambar: "img/kambang-kacang.svg",
-        deskripsi: "Motif bunga kacang yang melambangkan keakraban dan kerukunan."
-    },
-    {
-        id: 3,
-        nama: "Selendang Iris Pudak",
-        kategori: "aksesoris",
-        harga: 120000,
-        gambar: "img/iris-pudak.svg",
-        deskripsi: "Selendang ringan bermotif irisan daun pudak."
-    },
-    {
-        id: 4,
-        nama: "Kain Motif Naga Balimbur",
-        kategori: "kain",
-        harga: 200000,
-        gambar: "img/naga-balimbur.svg",
-        deskripsi: "Kain Sasirangan dengan motif khas Naga Balimbur."
-    },
-    {
-        id: 5,
-        nama: "Baju Sasirangan Pria",
-        kategori: "pakaian",
-        harga: 250000,
-        gambar: "img/baju-pria.jpg",
-        deskripsi: "Pakaian pria dengan sentuhan motif Sasirangan."
-    },
-    {
-        id: 6,
-        nama: "Baju Sasirangan Wanita",
-        kategori: "pakaian",
-        harga: 275000,
-        gambar: "img/baju-wanita.jpg",
-        deskripsi: "Pakaian wanita dengan motif khas Kalimantan Selatan."
-    },
-    {
-        id: 7,
-        nama: "Tas Sasirangan",
-        kategori: "aksesoris",
-        harga: 95000,
-        gambar: "img/tas-sasirangan.jpg",
-        deskripsi: "Tas dengan sentuhan kain tradisional Sasirangan."
-    },
-    {
-        id: 8,
-        nama: "Kain Motif Bayam Raja",
-        kategori: "kain",
-        harga: 190000,
-        gambar: "img/bayam-raja.svg",
-        deskripsi: "Kain Sasirangan dengan motif Bayam Raja."
-    },
-    {
-        id: 9,
-        nama: "Sepatu Motif Sasirangan",
-        kategori: "aksesoris",
-        harga: 220000,
-        gambar: "img/sepatu-sasirangan.jpg",
-        deskripsi: "Sepatu kasual kanvas dengan aksen kain Sasirangan khas Banjar."
-    },
-    {
-        id: 10,
-        nama: "Kopiah Sasirangan",
-        kategori: "aksesoris",
-        harga: 85000,
-        gambar: "img/kopiah-sasirangan.jpg",
-        deskripsi: "Peci atau kopiah bermotif Sasirangan yang nyaman dipakai sehari-hari."
-    },
-    {
-        id: 11,
-        nama: "Bros Etnik Sasirangan",
-        kategori: "aksesoris",
-        harga: 35000,
-        gambar: "img/bros-sasirangan.jpg",
-        deskripsi: "Aksesoris bros perca kain Sasirangan untuk pemanis pakaian dan hijab."
-    },
-    {
-        id: 12,
-        nama: "Dompet Pouch Sasirangan",
-        kategori: "aksesoris",
-        harga: 65000,
-        gambar: "img/dompet-sasirangan.jpg",
-        deskripsi: "Dompet serbaguna berlapis kain Sasirangan dengan resleting kuat."
-    },
-    {
-        id: 13,
-        nama: "Tunik Sasirangan Modern",
-        kategori: "pakaian",
-        harga: 285000,
-        gambar: "img/tunik-sasirangan.jpg",
-        deskripsi: "Tunik lengan panjang kombinasi katun polos dan motif Sasirangan."
-    },
-    {
-        id: 14,
-        nama: "Kemeja Batik Sasirangan Anak",
-        kategori: "pakaian",
-        harga: 165000,
-        gambar: "img/baju-anak.jpg",
-        deskripsi: "Kemeja anak berbahan katun adem dengan motif Sasirangan ceria."
-    },
-    {
-        id: 15,
-        nama: "Outer Cardigan Sasirangan",
-        kategori: "pakaian",
-        harga: 235000,
-        gambar: "img/outer-sasirangan.jpg",
-        deskripsi: "Outerwear kasual tanpa kancing berbahan katun motif Sasirangan modern."
-    },
-    {
-        id: 16,
-        nama: "Dress Midi Sasirangan",
-        kategori: "pakaian",
-        harga: 310000,
-        gambar: "img/dress-sasirangan.jpg",
-        deskripsi: "Gaun midi elegan dengan perpaduan motif tradisional khas Banjar."
-    }
-];
+// 1. Data katalog kini disimpan di data/katalog.json.
+// Awalnya kosong, lalu diisi oleh fungsi muatKatalog().
+let katalog = [];
 
 const daftarKatalog = document.querySelector("#daftar-katalog");
 const inputCari = document.querySelector("#cari");
@@ -143,6 +16,7 @@ function formatRupiah(angka) {
         minimumFractionDigits: 0
     }).format(angka);
 }
+
 function buatKartu(produk) {
     const kartu = document.createElement("article");
     kartu.className = "product-card";
@@ -218,6 +92,7 @@ function saringKatalog() {
 
     tampilkanKatalog(hasil);
 }
+
 if (inputCari) {
     inputCari.addEventListener("input", saringKatalog);
 }
@@ -237,4 +112,22 @@ tombolFilter.forEach((tombol) => {
         saringKatalog();
     });
 });
-tampilkanKatalog(katalog);
+
+// 10. Memuat data katalog dari file JSON secara asinkron // dibantu AI
+async function muatKatalog() {
+    infoJumlah.textContent = "Memuat katalog...";
+    try {
+        const respons = await fetch("data/katalog.json");
+        if (!respons.ok) {
+            throw new Error(`Gagal memuat katalog (HTTP ${respons.status})`);
+        }
+        katalog = await respons.json();
+        tampilkanKatalog(katalog);
+    } catch (galat) {
+        console.error(galat);
+        infoJumlah.textContent =
+            "Maaf, katalog gagal dimuat. Periksa koneksi Anda lalu muat ulang halaman.";
+    }
+}
+
+muatKatalog();
